@@ -3,12 +3,11 @@ Escreva um ou dois  parágrafo resumindo o objetivo do seu projeto.
 
 ## Alunos integrantes da equipe
 
-* Lucas Siares Magalhães
+* Lucas Soares Magalhães
 
 ## Professores responsáveis
 
-* Nome completo do professor 1
-* Nome completo do professor 2
+* Leonardo Vilela Cardoso
 
 ## Instruções de utilização
 
