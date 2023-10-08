@@ -1,6 +1,5 @@
 # Nome do projeto
-Escreva um ou dois  parágrafo resumindo o objetivo do seu projeto.
-
+O objetivo é desenvolver uma aplicação de Sistema de cobrança automática em estacionamentos de shopping. Por onde será feito a cobrança do cliente, faturamento para o shopping, tipos de automóveis que estacionaram, assim como levantamento de importantes índices para análise de faturamento do shopping
 ## Alunos integrantes da equipe
 
 * Lucas Soares Magalhães
