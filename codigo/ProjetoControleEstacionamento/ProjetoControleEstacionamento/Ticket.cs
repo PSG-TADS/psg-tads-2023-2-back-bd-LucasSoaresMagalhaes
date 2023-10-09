@@ -7,6 +7,15 @@
         private DateTime HoraEntrada { get; set; }
         private DateTime? HoraSaida { get; set; }
 
+        public bool Pago;
+
+        public Ticket(Automovel AutomovelAtual, DateTime HoraEntrada) { 
+        
+        this.AutomovelAtual = AutomovelAtual;
+        this.HoraEntrada = HoraEntrada;  
+        
+        }
+
         public decimal CalcularPreco()
         {
             this.Total = (this.HoraEntrada.CompareTo(this.HoraSaida)) * this.AutomovelAtual.PrecoHora;
