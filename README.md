@@ -1,4 +1,4 @@
-# Nome do projeto
+# Solução Estacionamento
 O objetivo principal deste projeto é desenvolver uma aplicação de Sistema de Cobrança Automática que simplifique o processo de pagamento de estacionamento para os clientes, ao mesmo tempo em que fornece ao shopping dados cruciais para análise de desempenho e faturamento. As metas específicas incluem:
 
    1 - Facilitar a Cobrança para Clientes: Eliminar a necessidade de pagamento manual, tornando o processo de entrada e saída dos veículos mais rápido e conveniente.
