@@ -1,9 +1,4 @@
-using MongoDB.Bson;
 using MongoDB.Driver;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using DnsClient;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 
