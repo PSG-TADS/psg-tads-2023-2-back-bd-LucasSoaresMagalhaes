@@ -40,6 +40,29 @@ CREATE TABLE Estacionamento (
     NumAutomoveis INT
 );
 
+-- Inserir dados fictícios na tabela Automovel
+INSERT INTO Automovel (Placa, Marca, Ano, Cor, PrecoHora)
+VALUES
+    ('AAA111', 'Toyota', 2022, 'Azul', 10.00),
+    ('BBB222', 'Honda', 2021, 'Prata', 11.50),
+    ('CCC333', 'Ford', 2023, 'Vermelho', 12.75),
+    ('DDD444', 'Chevrolet', 2022, 'Preto', 10.25),
+    ('EEE555', 'Nissan', 2021, 'Verde', 11.75);
+
+-- Inserir dados fictícios na tabela Ticket
+INSERT INTO Ticket (AutomovelCobrado, ValorTotal, HoraEntrada, HoraSaida)
+VALUES
+    ('AAA111', 15.00, '2023-10-19 08:00:00', '2023-10-19 12:30:00'),
+    ('BBB222', 30.25, '2023-10-19 09:30:00', '2023-10-19 13:45:00'),
+    ('CCC333', 18.00, '2023-10-19 10:15:00', '2023-10-19 14:00:00'),
+    ('DDD444', 22.50, '2023-10-19 11:45:00', '2023-10-19 15:30:00'),
+    ('EEE555', 40.00, '2023-10-19 08:30:00', '2023-10-19 13:00:00');
+
+-- Inserir dados fictícios na tabela Estacionamento
+INSERT INTO Estacionamento (Vagas, NumAutomoveis)
+VALUES
+    (100, 5);
+
 INSERT INTO Estacionamento (Vagas, NumAutomoveis)
 VALUES
     (100, 3);
