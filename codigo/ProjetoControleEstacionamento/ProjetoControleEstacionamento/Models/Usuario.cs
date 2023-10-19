@@ -1,8 +1,8 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
-
 namespace ProjetoControleEstacionamento.Models
+
 {
     public class Usuario
     {
@@ -10,7 +10,7 @@ namespace ProjetoControleEstacionamento.Models
         public ObjectId Id { get; set; }
 
         [BsonElement("Login")]
-        private readonly string Login;
+        public readonly string Login;
 
         [BsonElement("Senha")]
         private readonly string Senha;
@@ -32,24 +32,13 @@ namespace ProjetoControleEstacionamento.Models
             collection.InsertOne(this);
         }
 
+
+
         //Verifica se o usuário existe no banco e retorna verdadeiro ou falso
-        public async Task<bool> VerificarLogin(string login, string senha)
+        public bool VerificarLogin(string senha)
         {
-            var client = new MongoClient("mongodb://localhost:27017");
-            var database = client.GetDatabase("EstacionamentoDB");
-            var collection = database.GetCollection<Usuario>("Usuarios");
-
-            var user = await collection.Find(x => x.Login == login).FirstOrDefaultAsync();
-
-            if (user != null)
-            {
-                // Verificar a senha armazenada no banco de dados
-                bool senhaValida = BCrypt.Net.BCrypt.Verify(senha, user.Senha);
-
-                return senhaValida;
-            }
-
-            return false; // Usuário não encontrado
+            //return BCrypt.Net.BCrypt.Verify(senha, this.Senha);
+            return senha == this.Senha;
         }
 
         //TODO Gerar relatório de faturamento do estacionamento

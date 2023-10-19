@@ -3,6 +3,10 @@ using MongoDB.Driver;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using DnsClient;
+using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
+
 namespace ProjetoControleEstacionamento.Models
 {
     public class Program
@@ -23,12 +27,76 @@ namespace ProjetoControleEstacionamento.Models
 
             app.MapGet("/", () => "Hello World!");
 
-            app.MapGet("/carros", async (IMongoDatabase database) =>
+            //GET usuarios do sistema
+            app.MapGet("/login", async (IMongoDatabase database, [FromQuery] string login, [FromQuery] string senha) =>
             {
                 var collection = database.GetCollection<Usuario>("Usuarios");
-                var produtos = await collection.Find(_ => true).ToListAsync();
-                return Results.Ok(produtos);
+
+                // Primeiro, encontramos o usuário com base no nome de usuário (Login)
+                var filter = Builders<Usuario>.Filter.Eq(u => u.Login, login);
+                var usuario = await collection.Find(filter).FirstOrDefaultAsync();
+
+                if (usuario != null)
+                {
+                    // Verifique a senha
+                    if (usuario.VerificarLogin(senha))
+                    {
+                        // A senha está correta
+                        return Results.Ok("Autenticado com sucesso");
+                    }
+                    else
+                    {
+                        // Senha incorreta
+                        return Results.Unauthorized();
+                    }
+                }
+                else
+                {
+                    // Usuário não encontrado
+                    return Results.NotFound("Usuário não encontrado");
+                }
             });
+
+            app.MapPost("/cadastrarUsuario", async (IMongoDatabase database, [FromBody] JsonElement requestBody) =>
+            {
+                var collection = database.GetCollection<Usuario>("Usuarios");
+
+                // Verifique se a solicitação possui um campo "login" e "senha"
+                if (requestBody.TryGetProperty("login", out var loginProperty) && requestBody.TryGetProperty("senha", out var senhaProperty))
+                {
+                    string login = loginProperty.GetString();
+                    string senha = senhaProperty.GetString();
+
+                    if (login != null && senha != null)
+                    {
+                        // Primeiro, verifique se o usuário já existe com base no nome de usuário (Login)
+                        var filter = Builders<Usuario>.Filter.Eq(u => u.Login, login);
+                        var usuarioExistente = await collection.Find(filter).FirstOrDefaultAsync();
+
+                        if (usuarioExistente == null)
+                        {
+                            // O usuário não existe, então você pode prosseguir com o cadastro.
+                            // Crie um novo objeto Usuario com os dados do usuário e salve-o no banco de dados
+
+                            var novoUsuario = new Usuario(login, BCrypt.Net.BCrypt.HashPassword(senha));
+                            return Results.Ok("Cadastrado com sucesso");
+                        }
+                        else
+                        {
+                            return Results.Unauthorized();
+                        }
+                    }
+                    else
+                    {
+                        return Results.BadRequest("Solicitação inválida. Certifique-se de fornecer os campos 'login' e 'senha'.");
+                    }
+                }
+                else
+                {
+                    return Results.BadRequest("Solicitação inválida. Certifique-se de fornecer os campos 'login' e 'senha'.");
+                }
+            });
+
 
             // Outros endpoints (GET, POST, PUT, DELETE) podem ser configurados da mesma maneira
 
