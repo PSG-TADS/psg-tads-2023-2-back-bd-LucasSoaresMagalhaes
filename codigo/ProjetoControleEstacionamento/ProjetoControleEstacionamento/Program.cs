@@ -1,6 +1,7 @@
 using MongoDB.Driver;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
+using System.Data.SqlClient;
 
 namespace ProjetoControleEstacionamento.Models
 {
@@ -11,12 +12,29 @@ namespace ProjetoControleEstacionamento.Models
             var builder = WebApplication.CreateBuilder(args);
 
             // Configurar a conexão com o MongoDB
-            string connectionString = "mongodb://localhost:27017";
-            var mongoClient = new MongoClient(connectionString);
-            var databaseName = "EstacionamentoDB";
-            var db = mongoClient.GetDatabase(databaseName);
+            string connectionStringMongo = "mongodb://localhost:27017";
+            var mongoClient = new MongoClient(connectionStringMongo);
+            var databaseNameMongo = "EstacionamentoDB";
+            var dbMongo = mongoClient.GetDatabase(databaseNameMongo);
 
-            builder.Services.AddSingleton(db);
+            // Configurar a conexão com SQL
+
+            string connectionStringSQL = "Server=DESKTOP-LRPRCIT\\SQLEXPRESS;Database=EstacionamentoBDSQL;Trusted_Connection=True;";
+
+            using (SqlConnection connection = new SqlConnection(connectionStringSQL))
+            {
+                try
+                {
+                    connection.Open();
+                    Console.WriteLine("Conexão bem-sucedida!");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Erro de conexão: " + ex.Message);
+                }
+            }
+
+            builder.Services.AddSingleton(dbMongo);
 
             var app = builder.Build();
 
@@ -52,15 +70,15 @@ namespace ProjetoControleEstacionamento.Models
                 }
             });
 
-            app.MapPost("/cadastrarUsuario", async (IMongoDatabase database, [FromBody] JsonElement requestBody) =>
+            _ = app.MapPost("/cadastrarUsuario", async (IMongoDatabase database, [FromBody] JsonElement requestBody) =>
             {
                 var collection = database.GetCollection<Usuario>("Usuarios");
 
                 // Verifique se a solicitação possui um campo "login" e "senha"
-                if (requestBody.TryGetProperty("login", out var loginProperty) && requestBody.TryGetProperty("senha", out var senhaProperty))
+                if (requestBody.TryGetProperty("login", out var EntradaLogin) && requestBody.TryGetProperty("senha", out var EntradaSenha))
                 {
-                    string login = loginProperty.GetString();
-                    string senha = senhaProperty.GetString();
+                    string login = EntradaLogin.GetString();
+                    string senha = EntradaSenha.GetString();
 
                     if (login != null && senha != null)
                     {
