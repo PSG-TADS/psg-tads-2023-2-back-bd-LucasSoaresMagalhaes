@@ -61,8 +61,6 @@ A criação do sistema de monitoramento de estacionamento é essencial para melh
 
 ## Público-Alvo
 
-......  COLOQUE AQUI O SEU TEXTO ......
-
 O público-alvo deste projeto inclui administradores de estacionamentos, como Ana, que desejam coletar informações sobre o tempo que os veículos passam estacionados em seus estabelecimentos.
  
 ## Persona
