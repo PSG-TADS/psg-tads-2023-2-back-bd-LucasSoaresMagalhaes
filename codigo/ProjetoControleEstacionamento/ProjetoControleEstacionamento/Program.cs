@@ -21,7 +21,7 @@ namespace ProjetoControleEstacionamento.Models
 
             string connectionStringSQL = "Server=DESKTOP-LRPRCIT\\SQLEXPRESS;Database=EstacionamentoBDSQL;Trusted_Connection=True;";
 
-            using (SqlConnection connection = new SqlConnection(connectionStringSQL))
+            using (SqlConnection connection = new(connectionStringSQL))
             {
                 try
                 {
@@ -91,7 +91,7 @@ namespace ProjetoControleEstacionamento.Models
                             // O usuário não existe, então você pode prosseguir com o cadastro.
                             // Crie um novo objeto Usuario com os dados do usuário e salve-o no banco de dados
 
-                            var novoUsuario = new Usuario(login, BCrypt.Net.BCrypt.HashPassword(senha));
+                            var novoUsuario = new Usuario(login, senha, dbMongo);
                             return Results.Ok("Cadastrado com sucesso");
                         }
                         else
@@ -109,9 +109,8 @@ namespace ProjetoControleEstacionamento.Models
                     return Results.BadRequest("Solicitação inválida. Certifique-se de fornecer os campos 'login' e 'senha'.");
                 }
             });
+            
 
-
-            // Outros endpoints (GET, POST, PUT, DELETE) podem ser configurados da mesma maneira
 
             app.Run();
         }
