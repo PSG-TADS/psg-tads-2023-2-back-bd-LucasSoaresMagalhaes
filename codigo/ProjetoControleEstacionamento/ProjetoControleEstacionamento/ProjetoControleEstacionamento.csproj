@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="QuerysSQL\CriacaoDeDadosFicticios.sql" />
+    <None Remove="QuerysSQL\tarefa1.sql" />
+    <None Remove="QuerysSQL\tarefa10.sql" />
+    <None Remove="QuerysSQL\tarefa2.sql" />
+    <None Remove="QuerysSQL\tarefa3.sql" />
+    <None Remove="QuerysSQL\tarefa4.sql" />
+    <None Remove="QuerysSQL\tarefa5.sql" />
+    <None Remove="QuerysSQL\tarefa6.sql" />
+    <None Remove="QuerysSQL\tarefa7.sql" />
+    <None Remove="QuerysSQL\tarefa8.sql" />
+    <None Remove="QuerysSQL\tarefa9.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="QuerysSQL\CriacaoDeDadosFicticios.sql" />
+    <Compile Include="QuerysSQL\tarefa10.sql" />
+    <Compile Include="QuerysSQL\tarefa9.sql" />
+    <Compile Include="QuerysSQL\tarefa8.sql" />
+    <Compile Include="QuerysSQL\tarefa7.sql" />
+    <Compile Include="QuerysSQL\tarefa6.sql" />
+    <Compile Include="QuerysSQL\tarefa5.sql" />
+    <Compile Include="QuerysSQL\tarefa4.sql" />
+    <Compile Include="QuerysSQL\tarefa3.sql" />
+    <Compile Include="QuerysSQL\tarefa2.sql" />
+    <Compile Include="QuerysSQL\tarefa1.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="MongoDB.Driver" Version="2.22.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+  </ItemGroup>
+
+</Project>
